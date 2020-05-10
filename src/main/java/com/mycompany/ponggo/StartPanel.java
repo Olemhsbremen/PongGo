@@ -5,17 +5,22 @@
  */
 package com.mycompany.ponggo;
 
+import java.awt.Color;
 import javax.swing.JPanel;
+
 
 /**
  *
  * @author pitpa
  */
 public class StartPanel extends JPanel{
-       
+    
+    JPanel jp1 = new JPanel();
+    
     public StartPanel() {
         
-        
+        jp1.setBackground(Color.red);
+        jp1.setSize(1000, 800);
         
     }
     
