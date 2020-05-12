@@ -5,6 +5,7 @@
  */
 package com.mycompany.ponggo;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
 
@@ -14,12 +15,12 @@ import javax.swing.JPanel;
  */
 public class SecondPanel extends JPanel{
     
-    JPanel jp2 = new JPanel();
+    CardLayout c1;
     
-    public SecondPanel() {
+    public SecondPanel(CardLayout c1) {
         
-        jp2.setBackground(Color.blue);
-        
+        this.c1 = c1;
+        setBackground(Color.blue);      
     }
     
 }

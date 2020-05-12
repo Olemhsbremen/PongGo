@@ -5,9 +5,14 @@
  */
 package com.mycompany.ponggo;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import javax.swing.BoxLayout;
+//import java.awt.FlowLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-
 
 /**
  *
@@ -15,12 +20,21 @@ import javax.swing.JPanel;
  */
 public class StartPanel extends JPanel{
     
-    JPanel jp1 = new JPanel();
+    CardLayout c1;
+    JButton btn1 = new JButton();
     
-    public StartPanel() {
+    public StartPanel(CardLayout c1) {
         
-        jp1.setBackground(Color.red);
-        jp1.setSize(1000, 800);
+        this.c1 = c1;
+        setBackground(Color.red);
+                
+        btn1.setSize(100, 20);
+        btn1.setText("press to start");
+        btn1.setBackground(Color.ORANGE);
+        
+        add(btn1);
+        
+        
         
     }
     
