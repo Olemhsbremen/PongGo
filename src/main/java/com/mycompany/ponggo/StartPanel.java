@@ -33,18 +33,8 @@ public class StartPanel extends JPanel{
 
         setLayout(null);
         btn1.setText("press to start");
-        btn1.setBackground(Color.ORANGE);
-        btn1.setBounds(300, 290, 140, 20);
-
-        btn1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("hello world");
-
-            }
-        });
-
+        btn1.setBackground(Color.white);
+        btn1.setBounds(325, 330, 150, 20);
         add(btn1);
         
         

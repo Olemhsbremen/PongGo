@@ -7,28 +7,22 @@ package com.mycompany.ponggo;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
  *
  * @author pitpa
  */
-public class SecondPanel extends JPanel{
+public class GamePanel extends JPanel{
     
     CardLayout c1;
-    JButton btn2 = new JButton();
-    
-    public SecondPanel(CardLayout c1) {
-        
+
+    public GamePanel(CardLayout c1) {
+
         this.c1 = c1;
-        setBackground(Color.blue);      
         
-        setLayout(null);
-        btn2.setText("zum Spiel");
-        btn2.setBackground(Color.white);
-        btn2.setBounds(325, 330, 150, 20);
-        add(btn2);
+        setBackground(Color.orange);
+
     }
-    
+
 }
