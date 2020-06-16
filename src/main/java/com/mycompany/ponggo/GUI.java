@@ -6,12 +6,9 @@
 package com.mycompany.ponggo;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -21,14 +18,13 @@ public class GUI extends JFrame {
 
     CardLayout c1 = new CardLayout();
     StartPanel jp1 = new StartPanel(c1);
-    SecondPanel jp2 = new SecondPanel(c1);
-    GamePanel jp3 = new GamePanel(c1);
-    
+    GamePanel jp2 = new GamePanel(c1);
+
     public int screenwidth = 800;
     public int screenheight = 700;
-    
+
     public GUI() {
-        
+
         setSize(screenwidth, screenheight);
         setTitle("PonGO!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,22 +38,14 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 c1.next(getContentPane());
+                jp2.requestFocusInWindow();
             }
         });
 
         add(jp2, "2");
-        jp2.btn2.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                c1.next(getContentPane());
-            }
-        });
-        
-        add(jp3, "3");
 
         setVisible(true);
 
     }
-    
+
 }
