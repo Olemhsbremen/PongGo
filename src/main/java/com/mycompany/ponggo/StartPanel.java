@@ -54,7 +54,7 @@ public class StartPanel extends JPanel{
         setLayout(null);
         btn1.setText("press to start");
         btn1.setBackground(Color.white);
-        btn1.setBounds(325, 330, 150, 20);
+        btn1.setBounds(300, 570, 200, 50);
         add(btn1); 
     }
     
