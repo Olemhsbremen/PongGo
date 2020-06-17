@@ -12,6 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 
 /**
@@ -24,9 +26,16 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public boolean moveup = false;
     public boolean movedown = false;
-    
+    public boolean gmoveup = false;
+    public boolean gmovedown = false;
+
     public int x = 20;
     public int y = 300;
+
+    public int gx = 760;
+    public int gy = 300;
+
+    Timer move;
 
     public GamePanel(CardLayout c1) {
 
@@ -35,6 +44,40 @@ public class GamePanel extends JPanel implements KeyListener {
         setLayout(null);
         setSize(800, 700);
         addKeyListener(this);
+
+        move = new Timer();
+        move.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                if (moveup == true) {
+
+                    if (y >= 20) {
+                        y -= 20;
+                    }
+
+                } else if (movedown == true) {
+
+                    if (y <= getWidth() - 255) {
+                        y += 2;
+                    }
+                }
+
+                if (gmoveup == true) {
+
+                    if (gy >= 20) {
+                        gy -= 20;
+                    }
+
+                } else if (gmovedown == true) {
+
+                    if (gy <= getWidth() - 255) {
+                        gy += 2;
+                    }
+                }
+
+            }
+        }, 0, 6);
 
     }
 
@@ -46,16 +89,30 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("hello world");
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            moveup = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            movedown = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            gmoveup = true;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("goodbye world");
+            gmovedown = true;
         }
 
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            moveup = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            movedown = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            gmoveup = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            gmovedown = false;
+        }
 
     }
 
@@ -66,11 +123,19 @@ public class GamePanel extends JPanel implements KeyListener {
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        //Hintergrund
         g.setColor(new Color(67, 181, 189));
         g.fillRect(0, 0, getWidth(), getHeight());
-        
+
         g.setColor(Color.white);
-        g.fillRect(x, y, 10, 100);
+
+        //Spieler links
+        g.fillRect(x, y, 12, 120);
+        //Spieler rechts
+        g.fillRect(gx, gy, 12, 120);
+
+        repaint();
+
     }
 
 }
