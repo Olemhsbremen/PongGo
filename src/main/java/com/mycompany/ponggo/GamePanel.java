@@ -24,17 +24,23 @@ public class GamePanel extends JPanel implements KeyListener {
 
     CardLayout c1;
 
-    public boolean moveup = false;
-    public boolean movedown = false;
-    public boolean gmoveup = false;
-    public boolean gmovedown = false;
+    //Bewegungsvariablen Spieler1
+    private boolean player1up = false;
+    private boolean player1down = false;
+    
+    //Bewegungsvariablen Spieler2
+    private boolean player2up = false;
+    private boolean player2down = false;
 
-    public int x = 20;
-    public int y = 300;
+    //Variablen zur Posistionserkennung Spieler1
+    private int xsp1 = 20;
+    private int ysp1 = 300;
+    
+    //Variablen zur Posistionserkennung Spieler2
+    private int xsp2 = 755;
+    private int ysp2 = 300;
 
-    public int gx = 755;
-    public int gy = 300;
-
+    //Timer für die Bewegung der beiden SpielerS
     Timer move;
 
     public GamePanel(CardLayout c1) {
@@ -42,82 +48,98 @@ public class GamePanel extends JPanel implements KeyListener {
         this.c1 = c1;
 
         setLayout(null);
-        setSize(800, 700);
         addKeyListener(this);
 
+        //Beschreibung der Bewegung der beiden Spieler
         move = new Timer();
         move.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
+                
+                //Bewegung nach oben Spieler1
+                if (player1up == true) {
 
-                if (moveup == true) {
-
-                    if (y >= 20) {
-                        y -= 2;
+                    if (ysp1 >= 20) {
+                        ysp1 -= 2;
                     }
+                    
+                //Bewegung nach unten Spieler1
+                } else if (player1down == true) {
 
-                } else if (movedown == true) {
-
-                    if (y <= getWidth() - 255) {
-                        y += 2;
+                    if (ysp1 <= getWidth() - 255) {
+                        ysp1 += 2;
                     }
                 }
+                
+                //Bewegung nach oben Spieler2
+                if (player2up == true) {
 
-                if (gmoveup == true) {
-
-                    if (gy >= 20) {
-                        gy -= 2;
+                    if (ysp2 >= 20) {
+                        ysp2 -= 2;
                     }
+                    
+                //Bewegung nach unten Spieler2    
+                } else if (player2down == true) {
 
-                } else if (gmovedown == true) {
-
-                    if (gy <= getWidth() - 255) {
-                        gy += 2;
+                    if (ysp2 <= getWidth() - 255) {
+                        ysp2 += 2;
                     }
                 }
 
             }
-        }, 0, 6);
+        }, 0, 4);
 
     }
 
+    //Keylistener
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
 
+    //Beschreibt was passieren soll, wenn die Tastatur bedient wird.
     @Override
     public void keyPressed(KeyEvent e) {
 
+        // Setzen der Bewegungsvariablen für Spieler1
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            moveup = true;
+            player1up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
-            movedown = true;
+            player1down = true;
+
+        // Setzen der Bewegungsvariablen für Spieler2
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            gmoveup = true;
+            player2up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            gmovedown = true;
+            player2down = true;
         }
 
     }
 
+    //Beschreibt was passieren soll, wenn die Tasten wieder losgelassen werden.
     @Override
     public void keyReleased(KeyEvent e) {
 
+        // Zurücksetzen der Bewegungsvariablen für Spieler1
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            moveup = false;
+            player1up = false;
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
-            movedown = false;
+            player1down = false;
+
+        // Zurücksetzen der Bewegungsvariablen für Spieler2
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            gmoveup = false;
+            player2up = false;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            gmovedown = false;
+            player2down = false;
         }
 
     }
 
+    //Zeichnung der verschiedenen Komponenten des Spiels
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
@@ -129,10 +151,11 @@ public class GamePanel extends JPanel implements KeyListener {
 
         g.setColor(Color.white);
 
-        //Spieler links
-        g.fillRect(x, y, 13, 120);
-        //Spieler rechts
-        g.fillRect(gx, gy, 13, 120);
+        //Spieler 1 (links)
+        g.fillRect(xsp1, ysp1, 14, 120);
+        
+        //Spieler 2 (rechts)
+        g.fillRect(xsp2, ysp2, 14, 120);
 
         repaint();
 
