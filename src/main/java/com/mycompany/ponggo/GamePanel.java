@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements KeyListener {
     public int x = 20;
     public int y = 300;
 
-    public int gx = 760;
+    public int gx = 755;
     public int gy = 300;
 
     Timer move;
@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (moveup == true) {
 
                     if (y >= 20) {
-                        y -= 20;
+                        y -= 2;
                     }
 
                 } else if (movedown == true) {
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (gmoveup == true) {
 
                     if (gy >= 20) {
-                        gy -= 20;
+                        gy -= 2;
                     }
 
                 } else if (gmovedown == true) {
@@ -130,9 +130,9 @@ public class GamePanel extends JPanel implements KeyListener {
         g.setColor(Color.white);
 
         //Spieler links
-        g.fillRect(x, y, 12, 120);
+        g.fillRect(x, y, 13, 120);
         //Spieler rechts
-        g.fillRect(gx, gy, 12, 120);
+        g.fillRect(gx, gy, 13, 120);
 
         repaint();
 
