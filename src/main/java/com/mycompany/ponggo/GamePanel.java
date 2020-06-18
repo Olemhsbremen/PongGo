@@ -7,6 +7,7 @@ package com.mycompany.ponggo;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -20,8 +21,10 @@ import javax.swing.JPanel;
  *
  * @author pitpa
  */
-public class GamePanel extends JPanel implements KeyListener {
 
+public class GamePanel extends JPanel implements KeyListener {
+    
+    //Layout des GamePanels
     CardLayout c1;
 
     //Bewegungsvariablen Spieler1
@@ -40,11 +43,13 @@ public class GamePanel extends JPanel implements KeyListener {
     private int xsp2 = 755;
     private int ysp2 = 300;
 
-    //Timer für die Bewegung der beiden SpielerS
     Timer move;
+    
+    //Farbgradient für den Hintergrund des Gamepanels
+    GradientPaint p = new GradientPaint(100, 100, new Color(202, 122, 42), 800, 30, new Color(111, 58, 6));
 
     public GamePanel(CardLayout c1) {
-
+        
         this.c1 = c1;
 
         setLayout(null);
@@ -142,11 +147,10 @@ public class GamePanel extends JPanel implements KeyListener {
 
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //Hintergrund
-        g.setColor(new Color(67, 181, 189));
+        g2d.setPaint(p);
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.white);

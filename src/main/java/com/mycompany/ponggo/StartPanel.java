@@ -36,8 +36,6 @@ public class StartPanel extends JPanel {
         JPanel jp = new JPanel();
         this.c1 = c1;
 
-        setBackground(Color.red);
-
         setLayout(null);
         btn1.setText("press to start");
         btn1.setBackground(Color.white);
