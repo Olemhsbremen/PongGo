@@ -26,6 +26,10 @@ public class GamePanel extends JPanel implements KeyListener {
     
     //Layout des GamePanels
     CardLayout c1;
+    
+    Timer move;
+    
+    Sball ball;
 
     //Bewegungsvariablen Spieler1
     private boolean player1up = false;
@@ -42,15 +46,34 @@ public class GamePanel extends JPanel implements KeyListener {
     //Variablen zur Posistionserkennung Spieler2
     private int xsp2 = 755;
     private int ysp2 = 300;
-
-    Timer move;
+    
     
     //Farbgradient für den Hintergrund des Gamepanels
     GradientPaint p = new GradientPaint(100, 100, new Color(202, 122, 42), 800, 30, new Color(111, 58, 6));
-
+    
+    
+//     public class Sball
+//    {
+// 
+//        public Sball(Color a, int x, int y, int z,int gradx,int grady)
+//        {
+//            farbe = a;
+//            bx = x;
+//            by = y;
+//            radius = z;
+//            gradX = gradx;
+//            gradY = grady;
+//            
+//        }
+//    }
     public GamePanel(CardLayout c1) {
         
+        
+        
         this.c1 = c1;
+        
+        //Ball mit definierten Parametern
+        ball = new Sball(Color.white, getWidth()/2, getHeight()/2 ,12,1);
 
         setLayout(null);
         addKeyListener(this);
@@ -61,7 +84,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
             @Override
             public void run() {
-                
                 //Bewegung nach oben Spieler1
                 if (player1up == true) {
 
@@ -91,7 +113,45 @@ public class GamePanel extends JPanel implements KeyListener {
                         ysp2 += 2;
                     }
                 }
-
+                
+                //Ballbewegung und Kollisions Erkennung
+                
+                // Wechsel der Richtung Obere Wand
+                if (ball.by - ball.radius <= 0)
+                {
+                    ball.gradY = 1;
+                } 
+                // Wechsel der Richtung Untere Wand
+                if (ball.by + ball.radius > getHeight()){
+                    ball.gradY = -1;
+                }
+                // "Neustart" Fehler Spieler rechts
+                if (ball.bx >= getWidth()){
+                    ball.bx= (getWidth())/2-ball.radius;
+                    ball.by= (getHeight())/2-ball.radius;
+                    
+                    ball.gradX= -1;
+                // "Neustart" Fehler Spieler links
+                }
+                if (ball.bx <= 0 ){
+                    ball.bx= (getWidth())/2-ball.radius;
+                    ball.by= (getHeight())/2-ball.radius;
+                    
+                    ball.gradX= 1;
+                }
+                //Kollision Spieler Links und Ball
+                if (ball.bx < xsp1 +24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1 )
+                {
+                    ball.gradX = 1;
+                }
+                //Kollision Spieler Rechts und Ball
+                if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by+ball.radius < ysp2 + 120  && ball.by > ysp2 )
+                {
+                    ball.gradX = -1;
+                }
+                //zur Bewegung Hochgesetze x und y Werte des Balles
+                ball.bx += ball.gradX;
+                ball.by += ball.gradY;
             }
         }, 0, 4);
 
@@ -160,6 +220,11 @@ public class GamePanel extends JPanel implements KeyListener {
         
         //Spieler 2 (rechts)
         g.fillRect(xsp2, ysp2, 14, 120);
+        
+        //Ball Farbe
+        g.setColor(ball.farbe);
+        //Ball Zeichnung
+        g.fillOval((ball.bx- ball.radius ),(ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
 
         repaint();
 
