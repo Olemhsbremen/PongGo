@@ -6,13 +6,14 @@
 package com.mycompany.ponggo;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 /**
  *
  * @author pitpa
@@ -23,11 +24,16 @@ public class GUI extends JFrame {
     StartPanel jp1 = new StartPanel(c1);
     SecondPanel jp2 = new SecondPanel(c1);
     GamePanel jp3 = new GamePanel(c1);
+    Sound Lied = new Sound();
+    
+    
     
     public int screenwidth = 800;
     public int screenheight = 700;
     
     public GUI() {
+        Lied.Background("src\\main\\java\\Lieder\\Stayin_Alive.wav");
+     
         
         setSize(screenwidth, screenheight);
         setTitle("PonGO!");
@@ -35,12 +41,18 @@ public class GUI extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         getContentPane().setLayout(c1);
+        
+        
+        
 
         add(jp1, "1");
         jp1.btn1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(e.getSource()== jp1.btn1) {
+                    Lied.Button();
+                }
                 c1.next(getContentPane());
             }
         });
@@ -60,4 +72,19 @@ public class GUI extends JFrame {
 
     }
     
+    /*public void Sound(String filepath){
+        
+        InputStream music;
+        try{
+            music = new FileInputStream(new File(filepath));
+            AudioStream hallo = new AudioStream(music);
+            AudioPlayer.player.start(hallo);
+        }
+        catch(Exception e){
+            System.out.println("Sound läuft nicht");
+        }
+        
+        
+    }*/
+
 }

@@ -21,6 +21,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,6 +40,9 @@ import javax.swing.JPanel;
  */
 public class StartPanel extends JPanel{
     
+    
+    
+   
     CardLayout c1;
     JButton btn1 = new JButton();
     BufferedImage image;
@@ -44,7 +53,8 @@ public class StartPanel extends JPanel{
         } catch (IOException ex) {
             System.out.println("Hat nicht funktioniert");
         }
-
+        
+        
         JPanel jp = new JPanel();
         this.c1 = c1;
         
@@ -68,6 +78,31 @@ public class StartPanel extends JPanel{
         //g.fillOval(0, 0, getWidth(), getHeight());
         //getWidth();
         //getHeight();
+    }
+    
+    public void Musik() {
+        
+        File sound;
+        float value;
+        Clip clip;
+        
+        sound = new File("src\\main\\java\\Lieder\\Button.wav");
+        value = -20;
+
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(sound));
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Audio nicht abgespielt");
+        }
+    }
+    
+    
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()== btn1) {
+            
+        }
     }
 }
 
