@@ -7,34 +7,40 @@ package com.mycompany.ponggo;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
  *
  * @author pitpa
  */
-
 public class GamePanel extends JPanel implements KeyListener {
-    
+
     //Layout des GamePanels
     CardLayout c1;
-    
+
     Timer move;
-    
+
     Sball ball;
 
     //Bewegungsvariablen Spieler1
     private boolean player1up = false;
     private boolean player1down = false;
-    
+
     //Bewegungsvariablen Spieler2
     private boolean player2up = false;
     private boolean player2down = false;
@@ -42,43 +48,38 @@ public class GamePanel extends JPanel implements KeyListener {
     //Variablen zur Posistionserkennung Spieler1
     private int xsp1 = 20;
     private int ysp1 = 300;
-    
+
     //Variablen zur Posistionserkennung Spieler2
     private int xsp2 = 755;
     private int ysp2 = 300;
-    
-    
+
+    //Variablen für den Spielstand
+    private int pointsplayer1 = 0;
+    private int pointsplayer2 = 0;
+    private Font schriftart;
+
     //Farbgradient für den Hintergrund des Gamepanels
     GradientPaint p = new GradientPaint(100, 100, new Color(202, 122, 42), 800, 30, new Color(111, 58, 6));
-    
-    
-//     public class Sball
-//    {
-// 
-//        public Sball(Color a, int x, int y, int z,int gradx,int grady)
-//        {
-//            farbe = a;
-//            bx = x;
-//            by = y;
-//            radius = z;
-//            gradX = gradx;
-//            gradY = grady;
-//            
-//        }
-//    }
-    public GamePanel(CardLayout c1) {
-        
-        Sound Lied = new Sound();
-        
-        
-        
-        this.c1 = c1;
-        
-        //Ball mit definierten Parametern
-        ball = new Sball(Color.white, getWidth()/2, getHeight()/2 ,12,1);
 
+    public GamePanel(CardLayout c1) throws FontFormatException {
+
+        Sound Lied = new Sound();
+
+        this.c1 = c1;
         setLayout(null);
         addKeyListener(this);
+
+        try {
+            //Schriftart des Spielstandes
+            schriftart = Font.createFont(Font.TRUETYPE_FONT, new File("Schrift.ttf")).deriveFont(45f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Schrift.ttf")));
+        } catch (IOException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Ball mit definierten Parametern
+        ball = new Sball(Color.white, getWidth() / 2, getHeight() / 2, 12, 1);
 
         //Beschreibung der Bewegung der beiden Spieler
         move = new Timer();
@@ -92,66 +93,67 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (ysp1 >= 20) {
                         ysp1 -= 2;
                     }
-                    
-                //Bewegung nach unten Spieler1
+
+                    //Bewegung nach unten Spieler1
                 } else if (player1down == true) {
 
                     if (ysp1 <= getWidth() - 255) {
                         ysp1 += 2;
                     }
                 }
-                
+
                 //Bewegung nach oben Spieler2
                 if (player2up == true) {
 
                     if (ysp2 >= 20) {
                         ysp2 -= 2;
                     }
-                    
-                //Bewegung nach unten Spieler2    
+
+                    //Bewegung nach unten Spieler2    
                 } else if (player2down == true) {
 
                     if (ysp2 <= getWidth() - 255) {
                         ysp2 += 2;
                     }
                 }
-                
+
                 //Ballbewegung und Kollisions Erkennung
-                
                 // Wechsel der Richtung Obere Wand
-                if (ball.by - ball.radius <= 0)
-                {
+                if (ball.by - ball.radius <= 0) {
                     ball.gradY = 1;
-                } 
+                }
                 // Wechsel der Richtung Untere Wand
-                if (ball.by + ball.radius > getHeight()){
+                if (ball.by + ball.radius > getHeight()) {
                     ball.gradY = -1;
                 }
                 // "Neustart" Fehler Spieler rechts
-                if (ball.bx >= getWidth()){
-                    ball.bx= (getWidth())/2-ball.radius;
-                    ball.by= (getHeight())/2-ball.radius;
+                if (ball.bx >= getWidth()) {
+                    ball.bx = (getWidth()) / 2 - ball.radius;
+                    ball.by = (getHeight()) / 2 - ball.radius;
                     Lied.FehlerButton();
-                    
-                    ball.gradX= -1;
-                // "Neustart" Fehler Spieler links
+                    if (pointsplayer1 < 10) {
+                        pointsplayer1++;
+                    }
+                    ball.gradX = -1;
+                    // "Neustart" Fehler Spieler links
                 }
-                if (ball.bx <= 0 ){
-                    ball.bx= (getWidth())/2-ball.radius;
-                    ball.by= (getHeight())/2-ball.radius;
+                if (ball.bx <= 0) {
+                    ball.bx = (getWidth()) / 2 - ball.radius;
+                    ball.by = (getHeight()) / 2 - ball.radius;
                     Lied.FehlerButton();
-                    
-                    ball.gradX= 1;
+                    if (pointsplayer2 < 10) {
+                        pointsplayer2++;
+                    }
+
+                    ball.gradX = 1;
                 }
                 //Kollision Spieler Links und Ball
-                if (ball.bx < xsp1 +24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1 )
-                {
+                if (ball.bx < xsp1 + 24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1) {
                     ball.gradX = 1;
                     Lied.Button();
                 }
                 //Kollision Spieler Rechts und Ball
-                if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by+ball.radius < ysp2 + 120  && ball.by > ysp2 )
-                {
+                if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by + ball.radius < ysp2 + 120 && ball.by > ysp2) {
                     ball.gradX = -1;
                     Lied.Button();
                 }
@@ -159,7 +161,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 ball.bx += ball.gradX;
                 ball.by += ball.gradY;
             }
-        }, 0, 4);
+        }, 0, 5);
 
     }
 
@@ -179,7 +181,7 @@ public class GamePanel extends JPanel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player1down = true;
 
-        // Setzen der Bewegungsvariablen für Spieler2
+            // Setzen der Bewegungsvariablen für Spieler2
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             player2up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -198,7 +200,7 @@ public class GamePanel extends JPanel implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player1down = false;
 
-        // Zurücksetzen der Bewegungsvariablen für Spieler2
+            // Zurücksetzen der Bewegungsvariablen für Spieler2
         } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             player2up = false;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -223,15 +225,19 @@ public class GamePanel extends JPanel implements KeyListener {
 
         //Spieler 1 (links)
         g.fillRect(xsp1, ysp1, 14, 120);
-        
+
         //Spieler 2 (rechts)
         g.fillRect(xsp2, ysp2, 14, 120);
-        
+
         //Ball Farbe
         g.setColor(ball.farbe);
         //Ball Zeichnung
-        g.fillOval((ball.bx- ball.radius ),(ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
+        g.fillOval((ball.bx - ball.radius), (ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
 
+        //Spielstand
+        g.setFont(schriftart);
+        g.drawString("" + pointsplayer1, getWidth() / 2 - 60, 65);
+        g.drawString("" + pointsplayer2, getWidth() / 2 + 60, 65);
         repaint();
 
     }
