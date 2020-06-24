@@ -100,7 +100,7 @@ public class Sound {
         Clip clip;
         
         sound = new File("src\\main\\java\\Lieder\\Knopf.wav");
-        value = -20;
+        value = -10;
 
         try {
             clip = AudioSystem.getClip();
@@ -118,7 +118,7 @@ public class Sound {
         Clip clip;
         
         sound = new File("src\\main\\java\\Lieder\\Wandsound.wav");
-        value = -20;
+        value = -10;
 
         try {
             clip = AudioSystem.getClip();

@@ -14,15 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
-/**
- *
- * @author pitpa
- */
+
 public class StartPanel extends JPanel {
 
     CardLayout c1;
@@ -30,53 +23,29 @@ public class StartPanel extends JPanel {
     BufferedImage image;
 
     public StartPanel(CardLayout c1) {
-
-        try {
-            this.image = ImageIO.read(new File("Start.png"));
-        } catch (IOException ex) {
-            System.out.println("Hat nicht funktioniert");
-        }
         
         
         JPanel jp = new JPanel();
         this.c1 = c1;
-
+        
         setLayout(null);
         btn1.setText("press to start");
         btn1.setBackground(Color.white);
         btn1.setBounds(1, 1, 1, 1);
         add(btn1);
-
+        
+        
+        try {
+            this.image = ImageIO.read(new File("Start.png"));
+        } catch (IOException ex) {
+            System.out.println("Hat nicht funktioniert");
+        }
     }
 
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
     }
-    
-    public void Musik() {
-        
-        File sound;
-        float value;
-        Clip clip;
-        
-        sound = new File("src\\main\\java\\Lieder\\Button.wav");
-        value = -20;
-
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(sound));
-            clip.start();
-        } catch (Exception ex) {
-            System.out.println("Audio nicht abgespielt");
-        }
-    }
-    
-    
-//    public void actionPerformed(ActionEvent e) {
-//        if(e.getSource()== btn1) {
-//            
-//        }
-//    }
 }
