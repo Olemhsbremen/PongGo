@@ -68,6 +68,8 @@ public class GamePanel extends JPanel implements KeyListener {
 //    }
     public GamePanel(CardLayout c1) {
         
+        Sound Lied = new Sound();
+        
         
         
         this.c1 = c1;
@@ -143,11 +145,13 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (ball.bx < xsp1 +24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1 )
                 {
                     ball.gradX = 1;
+                    Lied.Button();
                 }
                 //Kollision Spieler Rechts und Ball
                 if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by+ball.radius < ysp2 + 120  && ball.by > ysp2 )
                 {
                     ball.gradX = -1;
+                    Lied.Button();
                 }
                 //zur Bewegung Hochgesetze x und y Werte des Balles
                 ball.bx += ball.gradX;

@@ -74,9 +74,9 @@ public class StartPanel extends JPanel {
     }
     
     
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()== btn1) {
-            
-        }
-    }
+//    public void actionPerformed(ActionEvent e) {
+//        if(e.getSource()== btn1) {
+//            
+//        }
+//    }
 }
