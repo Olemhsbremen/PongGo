@@ -111,4 +111,22 @@ public class Sound {
         }
         
     }
+    
+    public void FehlerButton() {
+        File sound;
+        float value;
+        Clip clip;
+        
+        sound = new File("src\\main\\java\\Lieder\\Wandsound.wav");
+        value = -20;
+
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(sound));
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Audio nicht abgespielt");
+        }
+        
+    }
 }

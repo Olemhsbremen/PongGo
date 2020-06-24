@@ -131,6 +131,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (ball.bx >= getWidth()){
                     ball.bx= (getWidth())/2-ball.radius;
                     ball.by= (getHeight())/2-ball.radius;
+                    Lied.FehlerButton();
                     
                     ball.gradX= -1;
                 // "Neustart" Fehler Spieler links
@@ -138,6 +139,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (ball.bx <= 0 ){
                     ball.bx= (getWidth())/2-ball.radius;
                     ball.by= (getHeight())/2-ball.radius;
+                    Lied.FehlerButton();
                     
                     ball.gradX= 1;
                 }
