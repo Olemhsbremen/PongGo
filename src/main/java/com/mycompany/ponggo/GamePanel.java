@@ -161,7 +161,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 ball.bx += ball.gradX;
                 ball.by += ball.gradY;
             }
-        }, 0, 5);
+        }, 0, 3);
 
     }
 

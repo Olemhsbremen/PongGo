@@ -45,7 +45,6 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource()== jp1.btn1) {
                     Lied.Button();
-                    Lied.FehlerButton();
                 }
                 c1.next(getContentPane());
                 jp2.requestFocusInWindow();
