@@ -15,11 +15,12 @@ import javax.swing.JFrame;
  * @author pitpa
  */
 public class GUI extends JFrame {
-
+    
     CardLayout c1 = new CardLayout();
     StartPanel jp1 = new StartPanel(c1);
     GamePanel jp2 = new GamePanel(c1);
     Sound Lied = new Sound();
+
     
     //Variablen für die Größe des JFrames
     public int screenwidth = 800;
@@ -48,6 +49,7 @@ public class GUI extends JFrame {
                 }
                 c1.next(getContentPane());
                 jp2.requestFocusInWindow();
+                jp2.setGameStart(true);
             }
         });
         

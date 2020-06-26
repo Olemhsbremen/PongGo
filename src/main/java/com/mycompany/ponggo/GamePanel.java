@@ -29,7 +29,8 @@ import javax.swing.JPanel;
  * @author pitpa
  */
 public class GamePanel extends JPanel implements KeyListener {
-
+    
+    private boolean gameStart = false;
     //Layout des GamePanels
     CardLayout c1;
 
@@ -54,16 +55,17 @@ public class GamePanel extends JPanel implements KeyListener {
     private int ysp2 = 300;
 
     //Variablen für den Spielstand
-    private int pointsplayer1 = 0;
-    private int pointsplayer2 = 0;
+    private int pointsplayer1 = -1;
+    private int pointsplayer2 = -1;
     private Font schriftart;
 
     //Farbgradient für den Hintergrund des Gamepanels
     GradientPaint p = new GradientPaint(100, 100, new Color(202, 122, 42), 800, 30, new Color(111, 58, 6));
 
     public GamePanel(CardLayout c1) throws FontFormatException {
-
-        Sound Lied = new Sound();
+        
+        
+        
 
         this.c1 = c1;
         setLayout(null);
@@ -117,49 +119,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                 }
 
-                //Ballbewegung und Kollisions Erkennung
-                // Wechsel der Richtung Obere Wand
-                if (ball.by - ball.radius <= 0) {
-                    ball.gradY = 1;
-                }
-                // Wechsel der Richtung Untere Wand
-                if (ball.by + ball.radius > getHeight()) {
-                    ball.gradY = -1;
-                }
-                // "Neustart" Fehler Spieler rechts
-                if (ball.bx >= getWidth()) {
-                    ball.bx = (getWidth()) / 2 - ball.radius;
-                    ball.by = (getHeight()) / 2 - ball.radius;
-                    Lied.FehlerButton();
-                    if (pointsplayer1 < 10) {
-                        pointsplayer1++;
-                    }
-                    ball.gradX = -1;
-                    // "Neustart" Fehler Spieler links
-                }
-                if (ball.bx <= 0) {
-                    ball.bx = (getWidth()) / 2 - ball.radius;
-                    ball.by = (getHeight()) / 2 - ball.radius;
-                    Lied.FehlerButton();
-                    if (pointsplayer2 < 10) {
-                        pointsplayer2++;
-                    }
-
-                    ball.gradX = 1;
-                }
-                //Kollision Spieler Links und Ball
-                if (ball.bx < xsp1 + 24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1) {
-                    ball.gradX = 1;
-                    Lied.Button();
-                }
-                //Kollision Spieler Rechts und Ball
-                if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by + ball.radius < ysp2 + 120 && ball.by > ysp2) {
-                    ball.gradX = -1;
-                    Lied.Button();
-                }
-                //zur Bewegung Hochgesetze x und y Werte des Balles
-                ball.bx += ball.gradX;
-                ball.by += ball.gradY;
+                updateBallPhysics();
             }
         }, 0, 3);
 
@@ -242,4 +202,59 @@ public class GamePanel extends JPanel implements KeyListener {
 
     }
 
+    private void updateBallPhysics(){
+                Sound Lied = new Sound();
+                //Ballbewegung und Kollisions Erkennung
+                // Wechsel der Richtung Obere Wand
+                if (ball.by - ball.radius <= 0) {
+                    ball.gradY = 1;
+                }
+                // Wechsel der Richtung Untere Wand
+                if (ball.by + ball.radius > getHeight()) {
+                    ball.gradY = -1;
+                }
+                // "Neustart" Fehler Spieler rechts
+                if (ball.bx >= getWidth()) {
+                    ball.bx = (getWidth()) / 2 - ball.radius;
+                    ball.by = (getHeight()) / 2 - ball.radius;
+                    Lied.FehlerButton();
+                    if (pointsplayer1 < 10) {
+                        pointsplayer1+=1;
+                    }
+                    ball.gradX = -1;
+                    // "Neustart" Fehler Spieler links
+                }
+                if (ball.bx <= 0) {
+                    ball.bx = (getWidth()) / 2 - ball.radius;
+                    ball.by = (getHeight()) / 2 - ball.radius;
+                    Lied.FehlerButton();
+                    if (pointsplayer2 < 10) {
+                        pointsplayer2+=1;
+                    }
+
+                    ball.gradX = 1;
+                }
+                //Kollision Spieler Links und Ball
+                if (ball.bx < xsp1 + 24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1) {
+                    ball.gradX = 1;
+                    Lied.Button();
+                }
+                //Kollision Spieler Rechts und Ball
+                if (ball.bx < xsp2 && ball.bx + ball.radius > xsp2 && ball.by + ball.radius < ysp2 + 120 && ball.by > ysp2) {
+                    ball.gradX = -1;
+                    Lied.Button();
+                }
+                //zur Bewegung Hochgesetze x und y Werte des Balles
+                if(gameStart) {
+                    ball.bx += ball.gradX;
+                    ball.by += ball.gradY;
+                }
+    }
+            
+            
+    public void setGameStart(boolean value){
+        
+        this.gameStart = value;
+        
+    }
 }
