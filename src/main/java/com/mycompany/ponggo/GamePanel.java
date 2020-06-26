@@ -55,8 +55,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private int ysp2 = 300;
 
     //Variablen für den Spielstand
-    private int pointsplayer1 = -1;
-    private int pointsplayer2 = -1;
+    private int pointsplayer1 = 0;
+    private int pointsplayer2 = 0;
     private Font schriftart;
 
     //Farbgradient für den Hintergrund des Gamepanels
@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
         //Ball mit definierten Parametern
-        ball = new Sball(Color.white, getWidth() / 2, getHeight() / 2, 12, 1);
+        ball = new Sball(Color.white, 400, 350, 12, 1);
 
         //Beschreibung der Bewegung der beiden Spieler
         move = new Timer();
@@ -121,7 +121,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                 updateBallPhysics();
             }
-        }, 0, 3);
+        }, 100, 3);
 
     }
 
@@ -192,7 +192,7 @@ public class GamePanel extends JPanel implements KeyListener {
         //Ball Farbe
         g.setColor(ball.farbe);
         //Ball Zeichnung
-        g.fillOval((ball.bx - ball.radius), (ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
+        g.fillOval((ball.bx - ball.radius), +(ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
 
         //Spielstand
         g.setFont(schriftart);
