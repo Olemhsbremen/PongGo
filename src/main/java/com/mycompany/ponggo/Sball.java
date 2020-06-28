@@ -34,12 +34,6 @@ public class Sball
 
     }
         
-    public void paint(Graphics g)
-    {
-        g.setColor(farbe);
-        g.fillOval((bx - radius),(by - radius), 2 * radius, 2 * radius);
-            
-    }
 }
     
 

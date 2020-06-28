@@ -27,10 +27,15 @@ import javax.swing.JPanel;
 /**
  *
  * @author pitpa
+ * @author JakobTheis
  */
 public class GamePanel extends JPanel implements KeyListener {
     
+    //Start Boolean des GamePanels
     private boolean gameStart = false;
+    
+    private boolean gameWinP1 = false;
+    private boolean gameWinP2 = false;
     //Layout des GamePanels
     CardLayout c1;
 
@@ -55,8 +60,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private int ysp2 = 300;
 
     //Variablen für den Spielstand
-    private int pointsplayer1 = 0;
-    private int pointsplayer2 = 0;
+    private int pointsplayer1 = 9;
+    private int pointsplayer2 = 9;
     private Font schriftart;
 
     //Farbgradient für den Hintergrund des Gamepanels
@@ -146,7 +151,9 @@ public class GamePanel extends JPanel implements KeyListener {
             player2up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             player2down = true;
-        }
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE){
+            gameStart = true;
+    }
 
     }
 
@@ -165,7 +172,7 @@ public class GamePanel extends JPanel implements KeyListener {
             player2up = false;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             player2down = false;
-        }
+        } 
 
     }
 
@@ -192,18 +199,38 @@ public class GamePanel extends JPanel implements KeyListener {
         //Ball Farbe
         g.setColor(ball.farbe);
         //Ball Zeichnung
-        g.fillOval((ball.bx - ball.radius), +(ball.by - ball.radius), 2 * ball.radius, 2 * ball.radius);
 
         //Spielstand
         g.setFont(schriftart);
-        g.drawString("" + pointsplayer1, getWidth() / 2 - 60, 65);
-        g.drawString("" + pointsplayer2, getWidth() / 2 + 60, 65);
+        g.drawString("" + pointsplayer1, getWidth() / 2 - 80, 65);
+        g.drawString("" + pointsplayer2, getWidth() / 2 + 40, 65);
+        if(gameWinP1){
+            g.drawString("Spieler 1 Gewinnt", getWidth()-615, (getHeight()/3) * 2);   
+        }
+        else{
+            g.fillOval((ball.bx - ball.radius/2), +(ball.by - ball.radius/2), 2 * ball.radius, 2 * ball.radius);
+        }
+        if(gameWinP2){
+            g.drawString("Spieler 2 Gewinnt", getWidth()-615, (getHeight()/3) * 2);
+        }
+        else{
+            g.fillOval((ball.bx - ball.radius/2), +(ball.by - ball.radius/2), 2 * ball.radius, 2 * ball.radius);
+        }
         repaint();
 
     }
 
     private void updateBallPhysics(){
                 Sound Lied = new Sound();
+                
+                if (gameWinP1||gameWinP2){
+                    gameStart = false;
+                    move.cancel();
+                    move.purge();
+                }
+                
+                else {
+                
                 //Ballbewegung und Kollisions Erkennung
                 // Wechsel der Richtung Obere Wand
                 if (ball.by - ball.radius <= 0) {
@@ -220,8 +247,11 @@ public class GamePanel extends JPanel implements KeyListener {
                     Lied.FehlerButton();
                     if (pointsplayer1 < 10) {
                         pointsplayer1+=1;
+                        ball.gradX = -1;
                     }
-                    ball.gradX = -1;
+                    else{
+                        gameWinP1 = true;
+                    }
                     // "Neustart" Fehler Spieler links
                 }
                 if (ball.bx <= 0) {
@@ -230,9 +260,13 @@ public class GamePanel extends JPanel implements KeyListener {
                     Lied.FehlerButton();
                     if (pointsplayer2 < 10) {
                         pointsplayer2+=1;
+                        ball.gradX = 1;
                     }
+                    else{
+                        gameWinP2 = true;
+                    }
+                    
 
-                    ball.gradX = 1;
                 }
                 //Kollision Spieler Links und Ball
                 if (ball.bx < xsp1 + 24 && ball.bx > xsp1 && ball.by < ysp1 + 120 && ball.by > ysp1) {
@@ -248,6 +282,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(gameStart) {
                     ball.bx += ball.gradX;
                     ball.by += ball.gradY;
+                }
                 }
     }
             
