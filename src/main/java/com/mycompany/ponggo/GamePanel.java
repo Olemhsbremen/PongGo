@@ -60,8 +60,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private int ysp2 = 300;
 
     //Variablen für den Spielstand
-    private int pointsplayer1 = 9;
-    private int pointsplayer2 = 9;
+    private int pointsplayer1 = 0;
+    private int pointsplayer2 = 0;
     private Font schriftart;
 
     //Farbgradient für den Hintergrund des Gamepanels
@@ -245,11 +245,12 @@ public class GamePanel extends JPanel implements KeyListener {
                     ball.bx = (getWidth()) / 2 - ball.radius;
                     ball.by = (getHeight()) / 2 - ball.radius;
                     Lied.FehlerButton();
-                    if (pointsplayer1 < 10) {
+                    if (pointsplayer1 < 4) {
                         pointsplayer1+=1;
                         ball.gradX = -1;
                     }
                     else{
+                        pointsplayer1+=1;
                         gameWinP1 = true;
                     }
                     // "Neustart" Fehler Spieler links
@@ -258,11 +259,12 @@ public class GamePanel extends JPanel implements KeyListener {
                     ball.bx = (getWidth()) / 2 - ball.radius;
                     ball.by = (getHeight()) / 2 - ball.radius;
                     Lied.FehlerButton();
-                    if (pointsplayer2 < 10) {
+                    if (pointsplayer2 < 4) {
                         pointsplayer2+=1;
                         ball.gradX = 1;
                     }
                     else{
+                        pointsplayer2+=1;
                         gameWinP2 = true;
                     }
                     
