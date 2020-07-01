@@ -25,7 +25,6 @@ public class Sound {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
                     try {
                         Clip clip = AudioSystem.getClip();
                         AudioInputStream inputstream = AudioSystem.getAudioInputStream(sound);
@@ -37,7 +36,6 @@ public class Sound {
                     } catch (Exception e) {
                         System.out.println("Hintergrundmusik läuft nicht");
                     }
-                }
             }
         }).start();
     }
