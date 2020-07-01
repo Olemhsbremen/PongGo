@@ -15,7 +15,8 @@ import javax.sound.sampled.Clip;
  * @author Ole Middendorf
  */
 public class Sound {
-
+    
+    //Hintergrundmusik wird gelesen, kontinuierlich wiederholt und in der GUI aufgerufen
     public void Background() {
         
         File sound;
@@ -41,6 +42,7 @@ public class Sound {
         }).start();
     }
     
+    //Sound für den Knopf wird gelesen und dann in dem AktionListener eingefügt
     public void Button() {
         
         File sound;
@@ -56,6 +58,8 @@ public class Sound {
         
     }
     
+    /*Sound für die Kollision des Balls mit den gegenüberliegenden Wänden
+        und dann im Gamepanel passend eingefügt*/
     public void FehlerButton() {
         
         File sound;

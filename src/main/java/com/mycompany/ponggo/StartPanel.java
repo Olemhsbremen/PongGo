@@ -33,12 +33,13 @@ public class StartPanel extends JPanel {
         JPanel jp = new JPanel();
         this.c1 = c1;
         
+        //Einstellungen für den Button
         setLayout(null);
         btn1.setBackground(Color.white);
         btn1.setBounds(1, 1, 1, 1);
         add(btn1);
         
-        
+        //Bild wird gelesen und aufgerufen
         try {
             this.image = ImageIO.read(new File("Start.png"));
         } catch (IOException ex) {
@@ -46,7 +47,7 @@ public class StartPanel extends JPanel {
         }
     }
 
-    
+    //Bild wird an das JPanel angepasst
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
