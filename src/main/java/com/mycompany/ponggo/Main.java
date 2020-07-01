@@ -7,7 +7,7 @@ package com.mycompany.ponggo;
 
 /**
  *
- * @author pitpa
+ * @author pitpa, Ole Middendorf, Jakob Theis
  */
 public class Main {
 

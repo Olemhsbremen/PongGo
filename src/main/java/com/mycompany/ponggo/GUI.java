@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author pitpa
+ * @author pitpa, Ole Middendorf, Jakob Theis
  */
 public class GUI extends JFrame {
     
@@ -27,7 +27,8 @@ public class GUI extends JFrame {
     public int screenheight = 700;
 
     public GUI() {
-        Lied.Background("src\\main\\java\\Lieder\\Stayin_Alive.wav");
+        
+        Lied.Background();
      
         
         setSize(screenwidth, screenheight);

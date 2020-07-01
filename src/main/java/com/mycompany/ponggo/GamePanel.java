@@ -180,7 +180,7 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     protected void paintComponent(Graphics g) {
 
-        super.paintComponent(g);
+        //super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -244,6 +244,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (ball.bx >= getWidth()) {
                     ball.bx = (getWidth()) / 2 - ball.radius;
                     ball.by = (getHeight()) / 2 - ball.radius;
+                    
                     Lied.FehlerButton();
                     if (pointsplayer1 < 4) {
                         pointsplayer1+=1;
@@ -258,6 +259,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if (ball.bx <= 0) {
                     ball.bx = (getWidth()) / 2 - ball.radius;
                     ball.by = (getHeight()) / 2 - ball.radius;
+                    
                     Lied.FehlerButton();
                     if (pointsplayer2 < 4) {
                         pointsplayer2+=1;

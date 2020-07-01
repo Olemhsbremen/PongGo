@@ -12,22 +12,26 @@ import javax.sound.sampled.Clip;
 
 /**
  *
- * @author Lenovo
+ * @author Ole Middendorf
  */
 public class Sound {
 
-    public void Background(String track) {
-        final String trackname = track;
+    public void Background() {
+        
+        File sound;
+        sound = new File("src\\main\\java\\Lieder\\Stayin_Alive.wav");
+        
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     try {
                         Clip clip = AudioSystem.getClip();
-                        AudioInputStream inputstream = AudioSystem.getAudioInputStream(new File(trackname));
+                        AudioInputStream inputstream = AudioSystem.getAudioInputStream(sound);
                         clip.open(inputstream);
                         clip.loop(clip.LOOP_CONTINUOUSLY);
-                        Thread.sleep(clip.getMicrosecondLength() / 1000);
+                        Thread.sleep(clip.getMicrosecondLength() / 1000);  
+                                // auch mit Thread.sleep(231000); möglich
 
                     } catch (Exception e) {
                         System.out.println("Hintergrundmusik läuft nicht");
@@ -37,23 +41,13 @@ public class Sound {
         }).start();
     }
     
-    /*public void Volume(int ton){
-        gain = ton/100.d;
-        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-        gainControl.setValue(dB);
-    }*/
-    
-    
     public void Button() {
-        File sound;
-        //float value;
-        Clip clip;
         
+        File sound;
         sound = new File("src\\main\\java\\Lieder\\Knopf.wav");
-        //value = -10;
 
         try {
-            clip = AudioSystem.getClip();
+            Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(sound));
             clip.start();
         } catch (Exception ex) {
@@ -63,15 +57,12 @@ public class Sound {
     }
     
     public void FehlerButton() {
-        File sound;
-        //float value;
-        Clip clip;
         
+        File sound;
         sound = new File("src\\main\\java\\Lieder\\Wandsound.wav");
-        //value = -10;
 
         try {
-            clip = AudioSystem.getClip();
+            Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(sound));
             clip.start();
         } catch (Exception ex) {

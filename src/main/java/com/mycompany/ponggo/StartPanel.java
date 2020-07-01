@@ -15,6 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ *
+ * @author Ole Middendorf
+ */
+
 
 public class StartPanel extends JPanel {
 
@@ -44,7 +49,6 @@ public class StartPanel extends JPanel {
     
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
     }
 }
